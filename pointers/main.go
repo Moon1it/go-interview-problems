@@ -2,15 +2,29 @@ package main
 
 import "fmt"
 
-func sum(nums ...int64) *int64 {
-	var sum int64
-	for _, num := range nums {
-		sum += num
+type Person struct {
+	name string
+	age  uint8
+}
+
+// person is a pointer to a Person struct
+// when we try to change the value of the pointer itself,
+// we are not changing the original pointer!
+
+func changePerson(person *Person) {
+	person = &Person{
+		name: "John",
+		age:  20,
 	}
-	return &sum
 }
 
 func main() {
-	result := sum(1, 2, 3, 4, 5)
-	fmt.Println(result, "\n", *result)
+	person := &Person{
+		name: "Mike",
+		age:  25,
+	}
+
+	fmt.Println(person.name)
+	changePerson(person)
+	fmt.Println(person.name)
 }
